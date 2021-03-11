@@ -25,12 +25,12 @@ class UserService extends Service {
             username: name,
             password: this.getMd5Data(pwd)
         })
-        const token = this.app.jwt.sign({
-            name,
-            pwd
-        }, this.app.config.jwt.secret)
         const userRes = await user.save()
-        return { token, desc: '注册成功' }
+        const token = this.app.jwt.sign({
+            id: userRes._id,
+            name
+        }, this.app.config.jwt.secret)
+        return { token: 'Bearer ' + token, desc: '注册成功' }
     }
     // 保存地址
     async saveAddress(user) {
@@ -65,7 +65,7 @@ class UserService extends Service {
     }
     // 获取地址
     async getAddressList(id) {
-        const findResult = await this.ctx.model.User.findOne({ _id: id }, {password: false})
+        const findResult = await this.ctx.model.User.findOne({ _id: id }, { password: false })
         if (findResult) {
             return findResult
         }
