@@ -7,7 +7,7 @@ module.exports = app => {
   const { router, controller, jwt } = app;
   router.get('/', jwt, controller.home.index);
   router.get('/goods', jwt, controller.goods.index);
-  router.get('/goods/addgoods', jwt, controller.goods.addGoods);
+  router.get('/goods/addgoods', controller.goods.addGoods);
   router.post('/goods/getgoodsinfo', jwt, controller.goods.getGoodsInfo);
   router.post('/goods/getcategorygoods', jwt, controller.goods.getCategoryGoods);
   router.post('/goods/getsearchList', jwt, controller.goods.getSearchList);

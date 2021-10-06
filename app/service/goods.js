@@ -5,6 +5,7 @@ class GoodsService extends Service {
     async addGoods() {
         fs.readFile('./goods.json', 'utf8', (err, res) => {
             if (err) {
+                console.log(err)
                 return 'error'
             }
             const data = JSON.parse(res)
